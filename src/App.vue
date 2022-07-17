@@ -2,7 +2,7 @@
     <component :is="layout + '-layout'" v-if="layout" />
 </template>
 
-<script>
+<script lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import MainLayout from './layouts/MainLayout.vue';

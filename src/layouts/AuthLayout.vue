@@ -4,7 +4,7 @@
     </div>
 </template>
 
-<style setup lang="scss">
+<style lang="scss">
 .auth {
     height: 100%;
     display: flex;
@@ -12,6 +12,3 @@
     align-items: center;
 }
 </style>
-
-
-

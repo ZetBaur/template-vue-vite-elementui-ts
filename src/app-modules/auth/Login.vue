@@ -1,8 +1,8 @@
 <template>
     <el-card class="box-card">
-        <el-form :model="formInfo" label-width="120px">
+        <el-form :model="formInfo" label-width="120px" @submit.prevent="submit">
             <el-form-item label="Login">
-                <el-input v-model="formInfo.name" />
+                <el-input v-model="formInfo.login" />
             </el-form-item>
 
             <el-form-item label="Пароль">
@@ -18,20 +18,19 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { useLoginStore } from '@/stores/auth/loginStore';
+
+const loginStore = useLoginStore();
 
 const formInfo = reactive({
-    name: null,
+    login: null,
     password: ''
 });
 
-const submit = () => {
-const params = {}
-
-
-
+const submit = async () => {
+    await loginStore.login(formInfo);
 };
 </script>
-
 
 <style scoped>
 .text {

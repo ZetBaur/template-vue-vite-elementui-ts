@@ -25,6 +25,17 @@ const router = createRouter({
                 layout: 'main',
                 auth: false
             }
+        },
+
+        {
+            path: '/login',
+            name: 'Login',
+
+            component: () => import('@/app-modules/auth/Login.vue'),
+            meta: {
+                layout: 'auth',
+                auth: false
+            }
         }
     ]
 });

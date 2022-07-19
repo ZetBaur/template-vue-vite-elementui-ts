@@ -1,5 +1,6 @@
 import router from '@/router';
 import axios from 'axios';
+import _ from 'lodash';
 
 import { useLoginStore } from '../stores/auth/loginStore';
 import { useRefreshStore } from '../stores/auth/refreshStore';
@@ -16,20 +17,17 @@ const requestAxios = axios.create({
 
 // ----------------------------------------
 
-requestAxios.interceptors.response.use(
-    (resp) => {},
-    async (error) => {
-        if (
-            error.response.data.message === 'wrong token' &&
-            loginStore.getRefreshToken
-        ) {
-            await refreshStore.refresh();
-        } else {
-            router.push('/login');
-        }
-        return Promise.reject(error);
+requestAxios.interceptors.response.use(_, async (error) => {
+    if (
+        error.response.data.message === 'wrong token' &&
+        loginStore.getRefreshToken
+    ) {
+        await refreshStore.refresh();
+    } else {
+        router.push('/login');
     }
-);
+    return Promise.reject(error);
+});
 
 // ----------------------------------------
 

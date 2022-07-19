@@ -16,13 +16,12 @@ export const useDiscountsPageStore = defineStore({
         async requestDiscountsPage(params: {}) {
             try {
                 const data = await Axios.get(
-                    import.meta.env.BASE_URL +
-                        'manager-api/v2/promotion/discounts/page',
+                    '/manager-api/v2/promotion/discounts/page',
                     {
                         params
                     }
                 );
-                console.log(data);
+                console.log(data.__wrapped__.data);
             } catch (error) {
                 console.log(error);
             }

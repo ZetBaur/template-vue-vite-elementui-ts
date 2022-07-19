@@ -30,22 +30,6 @@ export const useLoginStore = defineStore({
             } catch (error) {
                 console.log(error);
             }
-        },
-
-        async refresh() {
-            const params = {
-                refresh_token: this.getRefreshToken
-            };
-            try {
-                const { data } = await axios.post(
-                    'manager-api/v2/auth/refresh',
-                    params
-                );
-                localStorage.setItem('auth_token', data.auth_token);
-                localStorage.setItem('refresh_token', data.refresh_token);
-            } catch (error) {
-                console.log(error);
-            }
         }
     }
 });

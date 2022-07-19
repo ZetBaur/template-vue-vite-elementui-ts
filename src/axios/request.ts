@@ -2,11 +2,14 @@ import router from '@/router';
 import axios from 'axios';
 
 import { useLoginStore } from '../stores/auth/loginStore';
+import { useRefreshStore } from '../stores/auth/refreshStore';
+
 const loginStore = useLoginStore();
+const refreshStore = useRefreshStore();
 
 const requestAxios = axios.create({
     headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('refresh_token'),
+        Authorization: 'Bearer ' + localStorage.getItem('auth_token'),
         'Content-Type': 'application/json'
     }
 });
@@ -20,7 +23,7 @@ requestAxios.interceptors.response.use(
             error.response.data.message === 'wrong token' &&
             loginStore.getRefreshToken
         ) {
-            await loginStore.refresh();
+            await refreshStore.refresh();
         } else {
             router.push('/login');
         }

@@ -44,8 +44,10 @@
 <script lang="ts" setup>
 import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults';
 import { ElTable } from 'element-plus';
-import { reactive, ref, onMounted } from 'vue';
-import Axios from '../../../axios/request';
+import { reactive, onMounted } from 'vue';
+import { useDiscountsPageStore } from '../../../stores/promotion/discounts/page';
+
+const discountsPageStore = useDiscountsPageStore();
 
 const pageData = reactive({
     page: 1,
@@ -276,33 +278,18 @@ const tableData = [
 
 onMounted(() => {
     getDiscountsPage();
-    // console.log(import.meta.env.BASE_URL);
+    console.log(import.meta.env.BASE_URL);
 });
 
 const getDiscountsPage = async () => {
     const params = {
-        // actor_id: null,
-        // actor_type_id: null,
-        // category_id: null,
-        // city_id: null,
-        // type_id: null,
         page: pageData.page,
         size: pageData.size,
         sort: pageData.sort,
         show_all: true
     };
 
-    try {
-        const res = await Axios.get(
-            '/manager-api/v2/promotion/discounts/page',
-            {
-                params
-            }
-        );
-        console.log(res);
-    } catch (error) {
-        console.log(error);
-    }
+    await discountsPageStore.requestDiscountsPage(params);
 };
 
 const changePage = (v: number) => {

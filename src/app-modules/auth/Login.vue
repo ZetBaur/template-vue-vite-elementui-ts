@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { useLoginStore } from '@/stores/auth/loginStore';
+import { useLoginStore } from '../../stores/auth/loginStore';
 
 const loginStore = useLoginStore();
 

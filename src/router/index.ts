@@ -11,7 +11,7 @@ const router = createRouter({
             name: 'home',
             component: HomeView,
             meta: {
-                layout: 'main',
+                layout: 'auth',
                 auth: false
             }
         },

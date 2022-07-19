@@ -1,27 +1,45 @@
 import { defineStore } from 'pinia';
-// import Axios from '@/axios/request';
 import axios from 'axios';
 
 export const useLoginStore = defineStore({
     id: 'loginStore',
+
     state: () => ({
-        // counter: 0
+        auth_token: localStorage.getItem('auth_token'),
+        refresh_token: localStorage.getItem('refresh_token')
     }),
+
     getters: {
-        // doubleCount: (state) => state.counter * 2
+        getToken: (state) => state.auth_token,
+        getRefreshToken: (state) => state.refresh_token
     },
+
     actions: {
         async login(formInfo: {}) {
-            console.log('formInfo', formInfo);
-
-            console.log(import.meta.env);
-
             try {
-                const res = await axios.post(
+                const { data } = await axios.post(
                     'manager-api/v2/auth/signIn',
                     formInfo
                 );
-                console.log(res);
+                console.log(data);
+                localStorage.setItem('auth_token', data.auth_token);
+                localStorage.setItem('refresh_token', data.refresh_token);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async refresh(info: {}) {
+            console.log('info', info);
+            console.log(import.meta.env);
+            try {
+                const { data } = await axios.post(
+                    'manager-api/v2/auth/refresh',
+                    info
+                );
+                console.log(data);
+                localStorage.setItem('auth_token', data.auth_token);
+                localStorage.setItem('refresh_token', data.refresh_token);
             } catch (error) {
                 console.log(error);
             }

@@ -36,6 +36,17 @@ const router = createRouter({
                 layout: 'auth',
                 auth: false
             }
+        },
+
+        {
+            path: '/discounts_page',
+            name: 'DiscountsPage',
+            component: () =>
+                import('../app-modules/promotion/discounts/DiscountsPage.vue'),
+            meta: {
+                layout: 'main',
+                auth: false
+            }
         }
     ]
 });

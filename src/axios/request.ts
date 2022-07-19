@@ -1,23 +1,31 @@
 import router from '@/router';
 import axios from 'axios';
 
+import { useLoginStore } from '../stores/auth/loginStore';
+const loginStore = useLoginStore();
+
 const requestAxios = axios.create({
-	headers: {
-		Authorization: 'Bearer ' + localStorage.getItem('token'),
-		'Content-Type': 'application/json'
-	}
+    headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('refresh_token'),
+        'Content-Type': 'application/json'
+    }
 });
 
 // ----------------------------------------
 
 requestAxios.interceptors.response.use(
-	resp => {},
-	error => {
-		if (error.response.status === 401) {
-			router.push('/login');
-		}
-		return Promise.reject(error);
-	}
+    (resp) => {},
+    async (error) => {
+        if (
+            error.response.data.message === 'wrong token' &&
+            loginStore.getRefreshToken
+        ) {
+            await loginStore.refresh();
+        } else {
+            router.push('/login');
+        }
+        return Promise.reject(error);
+    }
 );
 
 // ----------------------------------------

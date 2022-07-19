@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import router from '../../router';
 
 export const useLoginStore = defineStore({
     id: 'loginStore',
@@ -11,7 +12,8 @@ export const useLoginStore = defineStore({
 
     getters: {
         getToken: (state) => state.auth_token,
-        getRefreshToken: (state) => state.refresh_token
+        getRefreshToken: (state) => state.refresh_token,
+        authenticated: (state) => !!state.auth_token
     },
 
     actions: {
@@ -24,20 +26,21 @@ export const useLoginStore = defineStore({
                 console.log(data);
                 localStorage.setItem('auth_token', data.auth_token);
                 localStorage.setItem('refresh_token', data.refresh_token);
+                router.push('/discounts_page');
             } catch (error) {
                 console.log(error);
             }
         },
 
-        async refresh(info: {}) {
-            console.log('info', info);
-            console.log(import.meta.env);
+        async refresh() {
+            const params = {
+                refresh_token: this.getRefreshToken
+            };
             try {
                 const { data } = await axios.post(
                     'manager-api/v2/auth/refresh',
-                    info
+                    params
                 );
-                console.log(data);
                 localStorage.setItem('auth_token', data.auth_token);
                 localStorage.setItem('refresh_token', data.refresh_token);
             } catch (error) {

@@ -42,14 +42,16 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults';
+import { ElTable } from 'element-plus';
+import { reactive, ref, onMounted } from 'vue';
 import Axios from '../../../axios/request';
 
 const pageData = reactive({
     page: 1,
     size: 10,
     sort: 'id,desc',
-    totalElements: null
+    totalElements: 0
 });
 
 const tableData = [
@@ -272,7 +274,12 @@ const tableData = [
     }
 ];
 
-const getDiscountsPage = () => {
+onMounted(() => {
+    getDiscountsPage();
+    // console.log(import.meta.env.BASE_URL);
+});
+
+const getDiscountsPage = async () => {
     const params = {
         // actor_id: null,
         // actor_type_id: null,
@@ -286,26 +293,48 @@ const getDiscountsPage = () => {
     };
 
     try {
-        const res = Axios.get('/manager-api/v2/promotion/discounts/page', {
-            params
-        });
+        const res = await Axios.get(
+            '/manager-api/v2/promotion/discounts/page',
+            {
+                params
+            }
+        );
         console.log(res);
     } catch (error) {
         console.log(error);
     }
 };
 
-const changePage = (v) => {
+const changePage = (v: number) => {
     pageData.page = v;
     getDiscountsPage();
 };
 
-const handleSizeChange = (v) => {
+const handleSizeChange = (v: number) => {
     pageData.size = v;
     getDiscountsPage();
 };
 
-const sortPage = (column, prop, order) => {
+interface Discounts {
+    category_id: string;
+    code: string;
+    discount_terms: [];
+    actor_ids: [];
+    actor_type_ids: [];
+    city_id: number;
+    id: number;
+    percentage: number;
+    price_new: number;
+    price_old: number;
+    dt_end: string;
+    dt_start: string;
+    image_link: string;
+    name_ml: {};
+    type_id: number;
+    ware_reference: string;
+}
+
+const sortPage = (column: TableColumnCtx<Discounts>, prop: string) => {
     if (column.prop.includes('ru')) {
         column.prop = column.prop.slice(0, -3);
     }

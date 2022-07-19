@@ -21,7 +21,9 @@ export const useDiscountsPageStore = defineStore({
                         params
                     }
                 );
-                console.log(data.__wrapped__.data);
+                this.discountsPage = data.__wrapped__.data;
+
+                // console.log(data.__wrapped__.data);
             } catch (error) {
                 console.log(error);
             }

@@ -45,7 +45,7 @@
 import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults';
 import { ElTable } from 'element-plus';
 import { reactive, onMounted } from 'vue';
-import { useDiscountsPageStore } from '../../../stores/promotion/discounts/page';
+import { useDiscountsPageStore } from '../../../stores/promotion/discounts/discountsPageStore';
 
 const discountsPageStore = useDiscountsPageStore();
 
@@ -290,6 +290,10 @@ const getDiscountsPage = async () => {
     };
 
     await discountsPageStore.requestDiscountsPage(params);
+
+    console.log(discountsPageStore.getDiscountsPage);
+
+    pageData.totalElements = discountsPageStore.getDiscountsPage.totalElements;
 };
 
 const changePage = (v: number) => {

@@ -7,30 +7,29 @@
     >
         <el-table-column type="expand">
             <template #default="props">
-                <div m="4">
-                    <p m="t-0 b-2">State: {{ props.row.state }}</p>
-                    <p m="t-0 b-2">City: {{ props.row.city }}</p>
-                    <p m="t-0 b-2">Address: {{ props.row.address }}</p>
-                    <p m="t-0 b-2">Zip: {{ props.row.zip }}</p>
-                    <h3>Family</h3>
-                    <el-table :data="props.row.family" border>
-                        <el-table-column label="Name" prop="name" />
-                        <el-table-column label="State" prop="state" />
-                        <el-table-column label="City" prop="city" />
-                        <el-table-column label="Address" prop="address" />
-                        <el-table-column label="Zip" prop="zip" />
-                    </el-table>
-                </div>
+                {{ props }}
             </template>
         </el-table-column>
-        <el-table-column label="Date" prop="date" sortable />
-        <el-table-column label="Name" prop="name" sortable />
+
+        <el-table-column label="ID" prop="id" sortable />
+
+        <el-table-column label="Code" prop="code" sortable />
+
+        <el-table-column label="dt_start" prop="dt_start" sortable />
+
+        <el-table-column label="dt_end" prop="dt_end" sortable />
+
+        <el-table-column label="image_link" prop="image_link" sortable />
+
+        <el-table-column label="type_id" prop="type_id" sortable />
+
+        <el-table-column label="category_id" prop="category_id" sortable />
     </el-table>
 
     <ElPagination
         background
         style="margin-top: 10px"
-        layout="total, sizes, prev, pager, next"
+        layout="total, size, prev, pager, next"
         :total="pageData.totalElements"
         :current-page.sync="pageData.page"
         :page-sizes="[10, 20, 30, 40]"
@@ -44,7 +43,7 @@
 <script lang="ts" setup>
 import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-column/defaults';
 import { ElTable } from 'element-plus';
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
 import { useDiscountsPageStore } from '../../../stores/promotion/discounts/discountsPageStore';
 
 const discountsPageStore = useDiscountsPageStore();
@@ -56,232 +55,27 @@ const pageData = reactive({
     totalElements: 0
 });
 
-const tableData = [
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        state: 'California',
-        city: 'San Francisco',
-        address: '3650 21st St, San Francisco',
-        zip: 'CA 94114',
-        family: [
-            {
-                name: 'Jerry',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Spike',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Tyke',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            }
-        ]
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        state: 'California',
-        city: 'San Francisco',
-        address: '3650 21st St, San Francisco',
-        zip: 'CA 94114',
-        family: [
-            {
-                name: 'Jerry',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Spike',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Tyke',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            }
-        ]
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        state: 'California',
-        city: 'San Francisco',
-        address: '3650 21st St, San Francisco',
-        zip: 'CA 94114',
-        family: [
-            {
-                name: 'Jerry',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Spike',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Tyke',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            }
-        ]
-    },
-    {
-        date: '2016-05-01',
-        name: 'Tom',
-        state: 'California',
-        city: 'San Francisco',
-        address: '3650 21st St, San Francisco',
-        zip: 'CA 94114',
-        family: [
-            {
-                name: 'Jerry',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Spike',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Tyke',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            }
-        ]
-    },
-    {
-        date: '2016-05-08',
-        name: 'Tom',
-        state: 'California',
-        city: 'San Francisco',
-        address: '3650 21st St, San Francisco',
-        zip: 'CA 94114',
-        family: [
-            {
-                name: 'Jerry',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Spike',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Tyke',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            }
-        ]
-    },
-    {
-        date: '2016-05-06',
-        name: 'Tom',
-        state: 'California',
-        city: 'San Francisco',
-        address: '3650 21st St, San Francisco',
-        zip: 'CA 94114',
-        family: [
-            {
-                name: 'Jerry',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Spike',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Tyke',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            }
-        ]
-    },
-    {
-        date: '2016-05-07',
-        name: 'Tom',
-        state: 'California',
-        city: 'San Francisco',
-        address: '3650 21st St, San Francisco',
-        zip: 'CA 94114',
-        family: [
-            {
-                name: 'Jerry',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Spike',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            },
-            {
-                name: 'Tyke',
-                state: 'California',
-                city: 'San Francisco',
-                address: '3650 21st St, San Francisco',
-                zip: 'CA 94114'
-            }
-        ]
-    }
-];
+// interface discountsPage {
+//     category_id: number;
+//     code: string;
+//     discount_terms: [];
+//     dt_end: string;
+//     dt_start: string;
+//     id: number;
+//     image_link: string;
+//     name_ml: {};
+//     type_id: number;
+//     ware_reference: string;
+// }
+
+let tableData = ref([]);
 
 onMounted(() => {
-    getDiscountsPage();
-    console.log(import.meta.env.BASE_URL);
+    requestDiscountsPage();
+    console.log('BASE_URL', import.meta.env.BASE_URL);
 });
 
-const getDiscountsPage = async () => {
+const requestDiscountsPage = async () => {
     const params = {
         page: pageData.page,
         size: pageData.size,
@@ -291,19 +85,23 @@ const getDiscountsPage = async () => {
 
     await discountsPageStore.requestDiscountsPage(params);
 
-    console.log(discountsPageStore.getDiscountsPage);
+    // console.log(discountsPageStore.GET_DISCOUNT_PAGE);
 
-    pageData.totalElements = discountsPageStore.getDiscountsPage.totalElements;
+    tableData.value = discountsPageStore.GET_DISCOUNT_PAGE.content;
+
+    console.log('tableData', tableData);
+
+    pageData.totalElements = discountsPageStore.GET_DISCOUNT_PAGE.totalElements;
 };
 
 const changePage = (v: number) => {
     pageData.page = v;
-    getDiscountsPage();
+    requestDiscountsPage();
 };
 
 const handleSizeChange = (v: number) => {
     pageData.size = v;
-    getDiscountsPage();
+    requestDiscountsPage();
 };
 
 interface Discounts {
@@ -333,6 +131,6 @@ const sortPage = (column: TableColumnCtx<Discounts>, prop: string) => {
         column.order === 'ascending' ? 'asc' : 'desc'
     }`;
 
-    getDiscountsPage();
+    requestDiscountsPage();
 };
 </script>

@@ -1,29 +1,39 @@
 import { defineStore } from 'pinia';
 import Axios from '../../../axios/request';
 
+interface DiscountPage {
+    content: [];
+    page: number;
+    size: number;
+    sort: string;
+    totalElements: number;
+    totalPages: number;
+}
+
 export const useDiscountsPageStore = defineStore({
     id: 'discontsPageStore',
 
     state: () => ({
-        discountsPage: []
+        discountsPage: [] as unknown as DiscountPage
     }),
 
     getters: {
-        getDiscountsPage: (state) => state.discountsPage
+        GET_DISCOUNT_PAGE: (state) => state.discountsPage
     },
 
     actions: {
         async requestDiscountsPage(params: {}) {
             try {
-                const data = await Axios.get(
+                const { __wrapped__ } = await Axios.get(
                     '/manager-api/v2/promotion/discounts/page',
                     {
                         params
                     }
                 );
-                this.discountsPage = data.__wrapped__.data;
 
-                // console.log(data.__wrapped__.data);
+                console.log(__wrapped__.data);
+
+                this.discountsPage = __wrapped__.data;
             } catch (error) {
                 console.log(error);
             }

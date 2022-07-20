@@ -30,6 +30,9 @@ requestAxios.interceptors.response.use(_, async (error) => {
             message: 'token is expired',
             duration: 10000
         });
+
+        // router.push('/login');
+
         await refreshStore.refresh();
         // await loginStore.login();
     } else {

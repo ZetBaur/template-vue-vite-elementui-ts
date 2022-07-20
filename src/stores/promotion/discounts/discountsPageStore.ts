@@ -32,7 +32,7 @@ export const useDiscountsPageStore = defineStore({
                     }
                 );
 
-                console.log(__wrapped__.data);
+                // console.log(__wrapped__.data);
 
                 this.discountsPage = __wrapped__.data;
             } catch (error) {

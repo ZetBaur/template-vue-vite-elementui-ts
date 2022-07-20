@@ -7,6 +7,8 @@ import { useRefreshStore } from '../stores/auth/refreshStore';
 
 import { ElNotification } from 'element-plus';
 
+import { reload } from '../use/reload';
+
 const loginStore = useLoginStore();
 const refreshStore = useRefreshStore();
 
@@ -25,16 +27,15 @@ requestAxios.interceptors.response.use(_, async (error) => {
             error.response.data.message === 'wrong token') &&
         loginStore.getRefreshToken
     ) {
+        await refreshStore.refresh();
+
         ElNotification({
             title: 'Prompt',
-            message: 'token is expired',
+            message: 'You must login',
             duration: 10000
         });
 
-        // router.push('/login');
-
-        await refreshStore.refresh();
-        // await loginStore.login();
+        reload();
     } else {
         router.push('/login');
 

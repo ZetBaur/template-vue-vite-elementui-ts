@@ -25,7 +25,8 @@ export const useDiscountsPageStore = defineStore({
         async REQUEST_DISCOUNT_PAGE(params: {}) {
             try {
                 const { __wrapped__ } = await Axios.get(
-                    '/manager-api/v2/promotion/discounts/page',
+                    import.meta.env.BASE_URL +
+                        'manager-api/v2/promotion/discounts/page',
                     {
                         params
                     }

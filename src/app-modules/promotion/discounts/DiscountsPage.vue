@@ -7,7 +7,7 @@
     >
         <el-table-column type="expand">
             <template #default="props">
-                {{ props }}
+                {{ props.row }}
             </template>
         </el-table-column>
 
@@ -76,11 +76,6 @@ const pageData = reactive({
 
 let tableData = ref([]);
 
-onMounted(() => {
-    requestDiscountsPage();
-    console.log('BASE_URL', import.meta.env.BASE_URL);
-});
-
 const requestDiscountsPage = async () => {
     const params = {
         page: pageData.page,
@@ -96,6 +91,11 @@ const requestDiscountsPage = async () => {
     pageData.totalElements = discountsPageStore.GET_DISCOUNT_PAGE.totalElements;
 };
 
+onMounted(() => {
+    requestDiscountsPage();
+    console.log('BASE_URL', import.meta.env.BASE_URL);
+});
+
 const changePage = (v: number) => {
     pageData.page = v;
     requestDiscountsPage();
@@ -106,26 +106,30 @@ const handleSizeChange = (v: number) => {
     requestDiscountsPage();
 };
 
-interface Discounts {
-    category_id: string;
+interface DiscountsPage {
+    category_id: number;
     code: string;
-    discount_terms: [];
-    actor_ids: [];
-    actor_type_ids: [];
-    city_id: number;
-    id: number;
-    percentage: number;
-    price_new: number;
-    price_old: number;
+    discount_terms: [
+        {
+            actor_ids: number[];
+            actor_type_ids: number[];
+            city_id: number;
+            id: number;
+            percentage: number;
+            price_new: number;
+            price_old: number;
+        }
+    ];
     dt_end: string;
     dt_start: string;
+    id: number;
     image_link: string;
-    name_ml: {};
+    name_ml: { ru: string; kk: string; en: string };
     type_id: number;
     ware_reference: string;
 }
 
-const sortPage = (column: TableColumnCtx<Discounts>, prop: string) => {
+const sortPage = (column: TableColumnCtx<DiscountsPage>, prop: string) => {
     if (column.prop.includes('ru')) {
         column.prop = column.prop.slice(0, -3);
     }

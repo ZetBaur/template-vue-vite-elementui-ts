@@ -1,8 +1,4 @@
 <template>
-    <!-- <div class="main">
-        <router-view />
-    </div> -->
-
     <el-config-provider :locale="locale">
         <router-view />
     </el-config-provider>

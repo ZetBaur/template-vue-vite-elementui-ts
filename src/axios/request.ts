@@ -29,12 +29,6 @@ requestAxios.interceptors.response.use(_, async (error) => {
     ) {
         await refreshStore.refresh();
 
-        ElNotification({
-            title: 'Prompt',
-            message: 'You must login',
-            duration: 10000
-        });
-
         reload();
     } else {
         router.push('/login');

@@ -33,11 +33,11 @@ requestAxios.interceptors.response.use(_, async (error) => {
     } else {
         router.push('/login');
 
-        ElNotification({
-            title: 'Prompt',
-            message: 'You must login',
-            duration: 10000
-        });
+        // ElNotification({
+        //     title: 'Prompt',
+        //     message: 'You must login',
+        //     duration: 10000
+        // });
     }
     return Promise.reject(error);
 });

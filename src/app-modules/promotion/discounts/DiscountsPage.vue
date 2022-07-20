@@ -19,7 +19,13 @@
 
         <el-table-column label="dt_end" prop="dt_end" sortable />
 
-        <el-table-column label="image_link" prop="image_link" sortable />
+        <el-table-column label="image_link" prop="image_link" sortable>
+            <template #default="scope">
+                <a :href="scope.row.image_link" download="" target="_blanc">
+                    Скачать</a
+                >
+            </template>
+        </el-table-column>
 
         <el-table-column label="type_id" prop="type_id" sortable />
 
@@ -83,13 +89,9 @@ const requestDiscountsPage = async () => {
         show_all: true
     };
 
-    await discountsPageStore.requestDiscountsPage(params);
-
-    // console.log(discountsPageStore.GET_DISCOUNT_PAGE);
+    await discountsPageStore.REQUEST_DISCOUNT_PAGE(params);
 
     tableData.value = discountsPageStore.GET_DISCOUNT_PAGE.content;
-
-    console.log('tableData', tableData);
 
     pageData.totalElements = discountsPageStore.GET_DISCOUNT_PAGE.totalElements;
 };

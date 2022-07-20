@@ -22,7 +22,7 @@ export const useDiscountsPageStore = defineStore({
     },
 
     actions: {
-        async requestDiscountsPage(params: {}) {
+        async REQUEST_DISCOUNT_PAGE(params: {}) {
             try {
                 const { __wrapped__ } = await Axios.get(
                     '/manager-api/v2/promotion/discounts/page',

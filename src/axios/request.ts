@@ -25,14 +25,13 @@ requestAxios.interceptors.response.use(_, async (error) => {
             error.response.data.message === 'wrong token') &&
         loginStore.getRefreshToken
     ) {
-        console.dir(error);
-
         ElNotification({
             title: 'Prompt',
             message: 'token is expired',
             duration: 10000
         });
         await refreshStore.refresh();
+        await loginStore.login();
     } else {
         router.push('/login');
 

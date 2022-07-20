@@ -31,7 +31,7 @@ requestAxios.interceptors.response.use(_, async (error) => {
             duration: 10000
         });
         await refreshStore.refresh();
-        await loginStore.login();
+        // await loginStore.login();
     } else {
         router.push('/login');
 

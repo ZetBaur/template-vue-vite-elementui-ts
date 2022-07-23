@@ -37,10 +37,10 @@
         style="margin-top: 10px"
         layout="total, sizes, prev, pager, next"
         :total="pageData.totalElements"
-        :current-page.sync="pageData.page"
+        v-model:current-page="pageData.page"
         :page-sizes="[10, 20, 30, 40]"
         :pager-count="21"
-        :page-size.sync="pageData.size"
+        v-model:page-size="pageData.size"
         @current-change="changePage"
         @size-change="handleSizeChange"
     />
@@ -74,7 +74,7 @@ const pageData = ref({
 //     ware_reference: string;
 // }
 
-let tableData = ref([]);
+const tableData = ref([]);
 
 const requestDiscountsPage = async () => {
     const params = {
@@ -130,7 +130,7 @@ interface DiscountsPage {
     ware_reference: string;
 }
 
-const sortPage = (column: TableColumnCtx<DiscountsPage>, prop: string) => {
+const sortPage = (column: TableColumnCtx<DiscountsPage>) => {
     if (column.prop.includes('ru')) {
         column.prop = column.prop.slice(0, -3);
     }

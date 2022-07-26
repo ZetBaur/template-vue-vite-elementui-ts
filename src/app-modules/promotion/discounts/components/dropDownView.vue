@@ -4,14 +4,15 @@
             <el-select
                 v-model="formInfo.tags"
                 multiple
+                filterable
                 placeholder="Select"
                 style="width: 240px"
             >
                 <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                    v-for="item in data.discount_terms"
+                    :key="item.id"
+                    :label="item.id"
+                    :value="item.id"
                 />
             </el-select>
         </el-form-item>
@@ -22,12 +23,14 @@
 import type { DiscountsPageType } from '../types/discounts.page.type';
 import { reactive } from 'vue';
 
-defineProps<{
+const props = defineProps<{
     data: DiscountsPageType;
 }>();
 
+console.log(props.data);
+
 const formInfo = reactive({
-    tags: []
+    tags: props.data.discount_terms
 });
 
 // const onSubmit = () => {

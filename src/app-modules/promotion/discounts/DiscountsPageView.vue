@@ -7,6 +7,7 @@
     >
         <el-table-column type="expand">
             <template #default="props">
+                <DropDownVue :data="props.row" />
                 {{ props.row }}
             </template>
         </el-table-column>
@@ -51,8 +52,12 @@ import type { TableColumnCtx } from 'element-plus/es/components/table/src/table-
 import { ElTable } from 'element-plus';
 import { onMounted, ref } from 'vue';
 import { useDiscountsPageStore } from '../../../stores/promotion/discounts/discountsPageStore';
+import DropDownVue from './components/dropDownView.vue';
+import type { ColumnType } from './types/discounts.page.type';
 
 const discountsPageStore = useDiscountsPageStore();
+
+const tableData = ref([]);
 
 const pageData = ref({
     page: 1,
@@ -60,21 +65,6 @@ const pageData = ref({
     sort: 'id,desc',
     totalElements: 0
 });
-
-// interface discountsPage {
-//     category_id: number;
-//     code: string;
-//     discount_terms: [];
-//     dt_end: string;
-//     dt_start: string;
-//     id: number;
-//     image_link: string;
-//     name_ml: {};
-//     type_id: number;
-//     ware_reference: string;
-// }
-
-const tableData = ref([]);
 
 const requestDiscountsPage = async () => {
     const params = {
@@ -87,6 +77,8 @@ const requestDiscountsPage = async () => {
     await discountsPageStore.REQUEST_DISCOUNT_PAGE(params);
 
     tableData.value = discountsPageStore.GET_DISCOUNT_PAGE.content;
+
+    console.log(tableData.value);
 
     pageData.value.totalElements =
         discountsPageStore.GET_DISCOUNT_PAGE.totalElements;
@@ -107,30 +99,9 @@ const handleSizeChange = (v: number) => {
     requestDiscountsPage();
 };
 
-interface DiscountsPage {
-    category_id: number;
-    code: string;
-    discount_terms: [
-        {
-            actor_ids: number[];
-            actor_type_ids: number[];
-            city_id: number;
-            id: number;
-            percentage: number;
-            price_new: number;
-            price_old: number;
-        }
-    ];
-    dt_end: string;
-    dt_start: string;
-    id: number;
-    image_link: string;
-    name_ml: { ru: string; kk: string; en: string };
-    type_id: number;
-    ware_reference: string;
-}
+const sortPage = (column: TableColumnCtx<ColumnType>) => {
+    console.log(column);
 
-const sortPage = (column: TableColumnCtx<DiscountsPage>) => {
     if (column.prop) {
         if (column.prop.includes('ru')) {
             column.prop = column.prop.slice(0, -3);

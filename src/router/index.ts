@@ -20,7 +20,7 @@ const router = createRouter({
             path: '/discounts_page',
             name: 'DiscountsPage',
             component: () =>
-                import('../app-modules/promotion/discounts/DiscountsPage.vue'),
+                import('../app-modules/promotion/discounts/DiscountsPageView.vue'),
             meta: {
                 layout: 'main',
                 auth: false

@@ -7,10 +7,9 @@ export const reload = () => {
 
         ElNotification({
             title: 'Prompt',
-            message: 'token is expired',
+            message: 'reloaded',
             duration: 10000
         });
-        
     } else {
         localStorage.setItem('reloaded', '1');
         location.reload();

@@ -131,12 +131,14 @@ interface DiscountsPage {
 }
 
 const sortPage = (column: TableColumnCtx<DiscountsPage>) => {
-    if (column.prop.includes('ru')) {
-        column.prop = column.prop.slice(0, -3);
+    if (column.prop) {
+        if (column.prop.includes('ru')) {
+            column.prop = column.prop.slice(0, -3);
+        }
+        pageData.value.sort = `${column.prop},${
+            column.order === 'ascending' ? 'asc' : 'desc'
+        }`;
     }
-    pageData.value.sort = `${column.prop},${
-        column.order === 'ascending' ? 'asc' : 'desc'
-    }`;
 
     requestDiscountsPage();
 };

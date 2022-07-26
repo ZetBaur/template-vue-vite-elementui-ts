@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { useLoginStore } from '../../stores/auth/loginStore';
 
 import axios from 'axios';
-import router from '../../router';
+// import router from '../../router';
 
 const loginStore = useLoginStore();
 

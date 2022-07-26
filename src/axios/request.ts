@@ -1,13 +1,10 @@
 import router from '@/router';
 import axios from 'axios';
 import _ from 'lodash';
-
 import { useLoginStore } from '../stores/auth/loginStore';
 import { useRefreshStore } from '../stores/auth/refreshStore';
-
 import { ElNotification } from 'element-plus';
-
-import { reload } from '../use/reload';
+// import { reload } from '../use/reload';
 
 const loginStore = useLoginStore();
 const refreshStore = useRefreshStore();
@@ -20,6 +17,8 @@ const requestAxios = axios.create({
 });
 
 requestAxios.interceptors.response.use(_, async (error) => {
+    console.log(error);
+
     if (
         (error.response.data.message === 'token is expired' ||
             error.response.data.message === 'wrong token') &&
@@ -27,7 +26,7 @@ requestAxios.interceptors.response.use(_, async (error) => {
     ) {
         await refreshStore.refresh();
 
-        reload();
+        // reload();
     } else {
         router.push('/login');
 
@@ -39,18 +38,5 @@ requestAxios.interceptors.response.use(_, async (error) => {
     }
     return Promise.reject(error);
 });
-
-// requestAxios.interceptors.request.use(
-//     (config) => {
-//         if (!config.headers.Authorization) {
-//             const token = localStorage.getItem('token')
-//             if (token) {
-//                 config.headers.Authorization = token
-//             }
-//         }
-//         return config
-//     },
-//     (error) => Promise.reject(error)
-// )
 
 export default requestAxios;

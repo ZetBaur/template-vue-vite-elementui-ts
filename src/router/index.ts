@@ -20,7 +20,19 @@ const router = createRouter({
             path: '/discounts_page',
             name: 'DiscountsPage',
             component: () =>
-                import('../app-modules/promotion/discounts/DiscountsPageView.vue'),
+                import(
+                    '../app-modules/promotion/discounts/DiscountsPageView.vue'
+                ),
+            meta: {
+                layout: 'main',
+                auth: false
+            }
+        },
+
+        {
+            path: '/vue_flow',
+            name: 'VueFlow',
+            component: () => import('../templates/diagram/VueFlow.vue'),
             meta: {
                 layout: 'main',
                 auth: false

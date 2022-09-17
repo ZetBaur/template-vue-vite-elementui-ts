@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { VueFlow, Position, useVueFlow } from '@braks/vue-flow';
 import { ref } from 'vue';
 import CustomConnectionLine from './CustomConnectionLine.vue';
@@ -59,8 +59,6 @@ const elements = ref([
 ]);
 
 const onAdd = () => {
-    console.log('hhhhhhhhhh');
-
     const id = nodes.value.length + 1;
 
     const newNode = {

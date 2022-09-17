@@ -9,7 +9,8 @@
         },
         "types": ["element-plus/global"],
         "module": "es2022",
-        "moduleResolution": "Node"
+        "moduleResolution": "Node",
+        "allowJs": true
     },
 
     "references": [

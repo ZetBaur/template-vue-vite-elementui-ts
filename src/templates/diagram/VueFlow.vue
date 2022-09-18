@@ -1,7 +1,23 @@
+<template>
+    <div style="height: 300px">
+        <VueFlow v-model="elements" auto-connect style="height: 300px">
+            <template #connection-line="props">
+                <CustomConnectionLine v-bind="props" />
+            </template>
+
+            <template #node-custom="props">
+                <CustomNode :data="props.data" /> </template
+        ></VueFlow>
+
+        <button style="background-color: #33a6b8" @click="onAdd">add</button>
+    </div>
+</template>
+
 <script setup>
 import { VueFlow, Position, useVueFlow } from '@braks/vue-flow';
 import { ref } from 'vue';
 import CustomConnectionLine from './CustomConnectionLine.vue';
+import CustomNode from './CustomNode.vue';
 
 const { nodes, dimensions, onPaneReady, onNodeDragStop, onConnect } =
     useVueFlow();
@@ -17,7 +33,7 @@ onPaneReady(({ fitView }) => {
 const elements = ref([
     {
         id: '1',
-        type: 'input',
+        type: 'custom',
         label: 'Node 1',
         position: { x: 250, y: 5 },
         sourcePosition: Position.Right,
@@ -68,7 +84,7 @@ const onAdd = () => {
             x: Math.random() * dimensions.value.width,
             y: Math.random() * dimensions.value.height
         },
-        type: 'input',
+        type: 'custom',
         sourcePosition: Position.Right,
         targetPosition: Position.Left
     };
@@ -78,14 +94,3 @@ const onAdd = () => {
     console.log(newNode);
 };
 </script>
-
-<template>
-    <div style="height: 300px">
-        <VueFlow v-model="elements" auto-connect style="height: 300px">
-            <template #connection-line="props">
-                <CustomConnectionLine v-bind="props" /> </template
-        ></VueFlow>
-
-        <button style="background-color: #33a6b8" @click="onAdd">add</button>
-    </div>
-</template>

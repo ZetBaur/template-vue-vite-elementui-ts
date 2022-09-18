@@ -90,6 +90,34 @@
                         </td>
                     </table>
                 </node>
+
+                <v-label
+                    v-for="(label, idx) in graph.edges"
+                    :key="label.id"
+                    :edge="graph.edges[idx]"
+                    :perc="50"
+                    :offset="{ x: parseInt(offsetX), y: parseInt(offsetY) }"
+                >
+                    <h4>{{ label.id.slice(-2) }}</h4>
+                </v-label>
+
+                <!-- <div v-if="graph.edges.length">
+                    <v-label
+                        v-for="(label, idx) in graph.edges"
+                        :key="label.id"
+                        :edge="graph.edges[idx]"
+                        :perc="parseInt(perc)"
+                        :offset="{ x: parseInt(offsetX), y: parseInt(offsetY) }"
+                        :align="align"
+                        :rotate="rotate"
+                        :connector="connector"
+                        :useDrag="true"
+                        ref="label"
+                        @drag="onDrag"
+                    >
+                        <div v-html="contents"></div>
+                    </v-label>
+                </div> -->
             </screen>
         </div>
         <div class="sidebar"></div>
@@ -102,13 +130,15 @@ import Node from '../../../node_modules/vnodes/src/components/Node.vue';
 import Edge from '../../../node_modules/vnodes/src/components/Edge.vue';
 import Port from '../../../node_modules/vnodes/src/components/Port.vue';
 import graph from '../../../node_modules/vnodes/src/graph.js';
+import VLabel from '../../../node_modules/vnodes/src/components/Label.vue';
 
 export default {
     components: {
         Screen,
         Node,
         Edge,
-        Port
+        Port,
+        VLabel
     },
 
     data() {
@@ -116,7 +146,14 @@ export default {
             graph: new graph(),
             connecting: null, // { node: {}, input: str, output: str }
             mousePrev: { x: 0, y: 0 },
-            zoom: 1
+            zoom: 1,
+            contents: '<small style="padding: 10px">Label</small>',
+            offsetX: 0,
+            offsetY: 0,
+            perc: 50,
+            align: 'center',
+            rotate: false,
+            connector: true
         };
     },
 
@@ -237,6 +274,13 @@ export default {
                 anchor.y += offset.y;
                 this.mousePrev = { x: e.clientX, y: e.clientY };
             }
+        },
+
+        onDrag(d) {
+            this.offsetX += d.x || 0;
+            this.offsetY += d.y || 0;
+            this.offsetX = Math.max(Math.min(this.offsetX, 100), -100);
+            this.offsetY = Math.max(Math.min(this.offsetY, 100), -100);
         }
     },
 

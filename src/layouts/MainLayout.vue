@@ -1,7 +1,7 @@
 <template>
     <el-container class="layout-container">
         <div class="upper-wrapper">
-            <the-menu />
+            <TheMenu />
 
             <el-container class="main-wrapper">
                 <el-header
@@ -36,7 +36,9 @@
     </el-container>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { Setting } from '@element-plus/icons-vue';
+</script>
 
 <style lang="scss">
 .header {

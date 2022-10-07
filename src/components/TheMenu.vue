@@ -4,8 +4,7 @@
         default-active="2"
         class="el-menu-vertical"
         :collapse="isCollapse"
-        @open="handleOpen"
-        @close="handleClose"
+        router
     >
         <el-menu-item class="logo" index="0" style="margin-top: 38px">
             <TheLogo />
@@ -21,8 +20,12 @@
             <!-- ------- -->
 
             <el-menu-item-group>
-                <el-menu-item index="1-1">item one</el-menu-item>
-                <el-menu-item index="1-2">item two</el-menu-item>
+                <el-menu-item index="/vue_flow" :route="{ name: 'VueFlow' }"
+                    >item one</el-menu-item
+                >
+                <el-menu-item index="/login" :route="{ name: 'LoginPage' }"
+                    >item two</el-menu-item
+                >
             </el-menu-item-group>
 
             <!-- ------- -->
@@ -55,16 +58,13 @@
 
         <!-- ------- -->
 
-        <el-menu-item class="logo" index="5" @click.self="expandMenu">
-            <MenuToggleIcon />
-        </el-menu-item>
+        <MenuToggleIcon @click="expandMenu" />
     </el-menu>
 </template>
 
 <script lang="ts" setup>
 import { Menu as IconMenu, Location } from '@element-plus/icons-vue';
 import { ref } from 'vue';
-
 import { onClickOutside } from '@vueuse/core';
 
 const target = ref(null);
@@ -73,26 +73,20 @@ onClickOutside(target, () => (isCollapse.value = true));
 const expandMenu = () => (isCollapse.value = false);
 
 const isCollapse = ref(true);
-
-const handleOpen = (key: string, keyPath: string[]) => {
-    console.log('handleOpen', key, keyPath);
-};
-const handleClose = (key: string, keyPath: string[]) => {
-    console.log('handleClose', key, keyPath);
-};
 </script>
 
 <style lang="scss">
-.logo {
+.el-menu {
     position: relative;
 
     & svg {
         position: absolute;
         left: 50%;
+
         transform: translateX(-50%);
+        bottom: 20px;
     }
-}
-.el-menu {
+
     background: #222222 !important;
 
     & svg {

@@ -1,9 +1,4 @@
 <template>
-    <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-        <el-radio-button :label="false">expand</el-radio-button>
-        <el-radio-button :label="true">collapse</el-radio-button>
-    </el-radio-group> -->
-
     <el-menu
         ref="target"
         default-active="2"
@@ -12,21 +7,20 @@
         @open="handleOpen"
         @close="handleClose"
     >
-        <el-menu-item index="0">
+        <el-menu-item class="logo" index="0" style="margin-top: 38px">
             <TheLogo />
         </el-menu-item>
 
         <el-sub-menu index="1">
             <template #title>
-                <!-- <el-icon><location /></el-icon> -->
-                <ExampleMenuIcon />
+                <el-icon><location /></el-icon>
+
                 <span>Navigator One</span>
             </template>
 
             <!-- ------- -->
 
             <el-menu-item-group>
-                <!-- <template #title><span>Group One</span></template> -->
                 <el-menu-item index="1-1">item one</el-menu-item>
                 <el-menu-item index="1-2">item two</el-menu-item>
             </el-menu-item-group>
@@ -48,35 +42,29 @@
         <!-- ----------------------------------------------------------------- -->
 
         <el-menu-item index="2">
-            <ExampleMenuIcon />
+            <el-icon><location /></el-icon>
             <template #title>Navigator Two</template>
         </el-menu-item>
 
         <!-- ------- -->
 
         <el-menu-item index="4">
-            <ExampleMenuIcon />
+            <el-icon><icon-menu /></el-icon>
             <template #title>Navigator Four</template>
         </el-menu-item>
 
         <!-- ------- -->
 
-        <el-menu-item
-            index="5"
-            @click.self="expandMenu"
-            v-show="isCollapse === true"
-        >
+        <el-menu-item class="logo" index="5" @click.self="expandMenu">
             <MenuToggleIcon />
         </el-menu-item>
     </el-menu>
 </template>
 
 <script lang="ts" setup>
+import { Menu as IconMenu, Location } from '@element-plus/icons-vue';
 import { ref } from 'vue';
-import ExampleMenuIcon from './icons/ExampleMenuIcon.vue';
-import TheLogo from './icons/TheLogo.vue';
 
-import MenuToggleIcon from './icons/MenuToggleIcon.vue';
 import { onClickOutside } from '@vueuse/core';
 
 const target = ref(null);
@@ -95,9 +83,17 @@ const handleClose = (key: string, keyPath: string[]) => {
 </script>
 
 <style lang="scss">
+.logo {
+    position: relative;
+
+    & svg {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
 .el-menu {
     background: #222222 !important;
-    padding-top: 38px !important;
 
     & svg {
         margin-right: 5px !important;
@@ -121,11 +117,11 @@ const handleClose = (key: string, keyPath: string[]) => {
 }
 
 .el-menu-vertical:not(.el-menu--collapse) {
-    width: 250px;
+    width: 200px;
     min-height: 400px;
 }
 
-.el-menu--collapse {
-    width: 77.89px !important;
-}
+// .el-menu--collapse {
+//     width: 77.89px !important;
+// }
 </style>

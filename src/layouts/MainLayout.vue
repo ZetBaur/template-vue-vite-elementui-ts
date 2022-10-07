@@ -1,7 +1,7 @@
 <template>
     <el-container class="layout-container">
         <div class="upper-wrapper">
-            <TheMenu />
+            <the-menu />
 
             <el-container class="main-wrapper">
                 <el-header
@@ -38,19 +38,22 @@
 
 <script lang="ts" setup></script>
 
-<style>
+<style lang="scss">
 .header {
     background: #fff !important;
 }
+
 .upper-wrapper {
     background: #222222 !important;
     display: flex;
     width: 100%;
 }
+
 .main-wrapper {
     border-radius: 30px 0 0 30px;
     overflow: hidden;
 }
+
 .main {
     background: #fff !important;
     padding: var(--main-gutter) !important;

@@ -44,13 +44,6 @@ export default defineConfig(({ command, mode }) => {
                     target: proxyApi,
                     changeOrigin: true,
                     logLevel: 'debug'
-                },
-
-                // with RegEx
-                '^/fallback/.*': {
-                    target: proxyApi,
-                    changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/fallback/, '')
                 }
             }
         }

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '@/app-modules/auth/Login.vue';
+import Login from '@/app-modules/auth/LoginPage.vue';
 import VnodePage from '../templates/vnodes/VnodePage.vue';
 
 const router = createRouter({
@@ -8,7 +8,7 @@ const router = createRouter({
     routes: [
         {
             path: '/login',
-            name: 'Login',
+            name: 'LoginPage',
             alias: '/',
             component: Login,
             meta: {
@@ -38,18 +38,18 @@ const router = createRouter({
                 layout: 'main',
                 auth: false
             }
-        },
-
-        {
-            path: '/vnode_page',
-            name: 'VnodePage',
-            // component: () => import('../templates/vnodes/VnodePage.vue'),
-            component: VnodePage,
-            meta: {
-                layout: 'main',
-                auth: false
-            }
         }
+
+        // {
+        //     path: '/vnode_page',
+        //     name: 'VnodePage',
+        //     // component: () => import('../templates/vnodes/VnodePage.vue'),
+        //     component: VnodePage,
+        //     meta: {
+        //         layout: 'main',
+        //         auth: false
+        //     }
+        // }
     ]
 });
 

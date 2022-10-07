@@ -1,10 +1,11 @@
 <template>
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+    <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
         <el-radio-button :label="false">expand</el-radio-button>
         <el-radio-button :label="true">collapse</el-radio-button>
-    </el-radio-group>
+    </el-radio-group> -->
 
     <el-menu
+        ref="target"
         default-active="2"
         class="el-menu-vertical-demo"
         :collapse="isCollapse"
@@ -16,30 +17,54 @@
                 <el-icon><location /></el-icon>
                 <span>Navigator One</span>
             </template>
+
+            <!-- ------- -->
+
             <el-menu-item-group>
                 <template #title><span>Group One</span></template>
                 <el-menu-item index="1-1">item one</el-menu-item>
                 <el-menu-item index="1-2">item two</el-menu-item>
             </el-menu-item-group>
+
+            <!-- ------- -->
+
             <el-menu-item-group title="Group Two">
                 <el-menu-item index="1-3">item three</el-menu-item>
             </el-menu-item-group>
+
+            <!-- ------- -->
+
             <el-sub-menu index="1-4">
                 <template #title><span>item four</span></template>
                 <el-menu-item index="1-4-1">item one</el-menu-item>
             </el-sub-menu>
         </el-sub-menu>
+
+        <!-- ----------------------------------------------------------------- -->
+
         <el-menu-item index="2">
             <el-icon><icon-menu /></el-icon>
             <template #title>Navigator Two</template>
         </el-menu-item>
+
+        <!-- ------- -->
+
         <el-menu-item index="3" disabled>
             <el-icon><document /></el-icon>
             <template #title>Navigator Three</template>
         </el-menu-item>
+
+        <!-- ------- -->
+
         <el-menu-item index="4">
             <el-icon><setting /></el-icon>
             <template #title>Navigator Four</template>
+        </el-menu-item>
+
+        <!-- ------- -->
+
+        <el-menu-item index="5">
+            <MenuToggleIcon @click="expandMenu" />
         </el-menu-item>
     </el-menu>
 </template>
@@ -52,17 +77,39 @@ import {
     Location,
     Setting
 } from '@element-plus/icons-vue';
+import MenuToggleIcon from './icons/MenuToggleIcon.vue';
+import { onClickOutside } from '@vueuse/core';
+
+const target = ref(null);
 
 const isCollapse = ref(true);
+
+onClickOutside(target, (event) => {
+    console.log(event);
+
+    console.log(target);
+
+    isCollapse.value = true;
+});
+
+const expandMenu = () => (isCollapse.value = !isCollapse.value);
+
 const handleOpen = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath);
+    console.log('handleOpen', key, keyPath);
 };
 const handleClose = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath);
+    console.log('handleClose', key, keyPath);
 };
 </script>
 
-<style>
+<style lang="scss">
+.el-menu {
+    background: #222222 !important;
+}
+
+.el-menu-item:hover {
+    background-color: #3c3c3c !important;
+}
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;

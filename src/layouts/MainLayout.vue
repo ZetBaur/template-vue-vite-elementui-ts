@@ -1,10 +1,10 @@
 <template>
     <el-container class="layout-container-demo" style="height: 500px">
-        <el-aside width="200px">
-            <el-scrollbar>
-                <TheMenu />
-            </el-scrollbar>
-        </el-aside>
+        <!-- <el-aside width="200px"> -->
+        <el-scrollbar>
+            <TheMenu />
+        </el-scrollbar>
+        <!-- </el-aside> -->
 
         <el-container>
             <el-header style="text-align: right; font-size: 12px">
@@ -13,6 +13,7 @@
                         <el-icon style="margin-right: 8px; margin-top: 1px"
                             ><setting
                         /></el-icon>
+
                         <template #dropdown>
                             <el-dropdown-menu>
                                 <el-dropdown-item>View</el-dropdown-item>
@@ -35,16 +36,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { Menu as IconMenu, Message, Setting } from '@element-plus/icons-vue';
-import TheMenu from '@/components/TheMenu.vue';
+// import { Menu as IconMenu, Message, Setting } from '@element-plus/icons-vue';
 
-const item = {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles'
-};
-const tableData = ref(Array.from({ length: 20 }).fill(item));
+// const item = {
+//     date: '2016-05-02',
+//     name: 'Tom',
+//     address: 'No. 189, Grove St, Los Angeles'
+// };
+// const tableData = ref(Array.from({ length: 20 }).fill(item));
 </script>
 
 <style scoped>

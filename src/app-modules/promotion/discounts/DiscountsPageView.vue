@@ -78,8 +78,6 @@ const requestDiscountsPage = async () => {
 
     tableData.value = discountsPageStore.GET_DISCOUNT_PAGE.content;
 
-    console.log(tableData.value);
-
     pageData.value.totalElements =
         discountsPageStore.GET_DISCOUNT_PAGE.totalElements;
 };

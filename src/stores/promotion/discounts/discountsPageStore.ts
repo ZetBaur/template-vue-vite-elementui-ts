@@ -10,6 +10,13 @@ interface DiscountPage {
     totalPages: number;
 }
 
+interface Params {
+    page: number;
+    size: number;
+    sort: string;
+    show_all: boolean;
+}
+
 export const useDiscountsPageStore = defineStore({
     id: 'discontsPageStore',
 
@@ -22,9 +29,9 @@ export const useDiscountsPageStore = defineStore({
     },
 
     actions: {
-        async REQUEST_DISCOUNT_PAGE(params: {}) {
+        async REQUEST_DISCOUNT_PAGE(params: Params) {
             try {
-                const { __wrapped__ } = await Axios.get(
+                const resp = await Axios.get(
                     import.meta.env.BASE_URL +
                         'manager-api/v2/promotion/discounts/page',
                     {
@@ -32,9 +39,7 @@ export const useDiscountsPageStore = defineStore({
                     }
                 );
 
-                // console.log(__wrapped__.data);
-
-                this.discountsPage = __wrapped__.data;
+                this.discountsPage = resp.__wrapped__.data;
             } catch (error) {
                 console.log(error);
             }

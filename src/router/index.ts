@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '@/app-modules/auth/LoginPage.vue';
-import VnodePage from '../templates/vnodes/VnodePage.vue';
+// import VnodePage from '../templates/vnodes/VnodePage.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

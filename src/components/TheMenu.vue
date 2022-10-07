@@ -6,9 +6,7 @@
         :collapse="isCollapse"
         router
     >
-        <el-menu-item class="logo" index="0" style="margin-top: 38px">
-            <TheLogo />
-        </el-menu-item>
+        <TheLogo />
 
         <el-sub-menu index="1">
             <template #title>
@@ -20,10 +18,14 @@
             <!-- ------- -->
 
             <el-menu-item-group>
-                <el-menu-item index="/vue_flow" :route="{ name: 'VueFlow' }"
+                <el-menu-item
+                    index="/vue_flow"
+                    :route="{ name: 'VueFlow' }"
                     >item one</el-menu-item
                 >
-                <el-menu-item index="/login" :route="{ name: 'LoginPage' }"
+                <el-menu-item
+                    index="/login"
+                    :route="{ name: 'LoginPage' }"
                     >item two</el-menu-item
                 >
             </el-menu-item-group>
@@ -58,7 +60,10 @@
 
         <!-- ------- -->
 
-        <MenuToggleIcon @click="expandMenu" />
+        <MenuToggleIcon
+            @click="expandMenu"
+            class="menu-toggle-icon"
+        />
     </el-menu>
 </template>
 
@@ -66,29 +71,23 @@
 import { Menu as IconMenu, Location } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-
+const isCollapse = ref(true);
 const target = ref(null);
 onClickOutside(target, () => (isCollapse.value = true));
-
 const expandMenu = () => (isCollapse.value = false);
-
-const isCollapse = ref(true);
 </script>
 
 <style lang="scss">
+.menu-toggle-icon {
+    cursor: pointer;
+    &:hover {
+        fill: grey;
+    }
+}
 .el-menu {
     position: relative;
 
-    & svg {
-        position: absolute;
-        left: 50%;
-
-        transform: translateX(-50%);
-        bottom: 20px;
-    }
-
     background: #222222 !important;
-
     & svg {
         margin-right: 5px !important;
     }
@@ -96,7 +95,6 @@ const isCollapse = ref(true);
 
 .el-sub-menu__title {
     color: #ffffff !important;
-
     &:hover {
         background-color: #3c3c3c !important;
     }
@@ -104,7 +102,6 @@ const isCollapse = ref(true);
 
 .el-menu-item {
     color: #ffffff !important;
-
     &:hover {
         background-color: #3c3c3c !important;
     }
@@ -114,8 +111,4 @@ const isCollapse = ref(true);
     width: 200px;
     min-height: 400px;
 }
-
-// .el-menu--collapse {
-//     width: 77.89px !important;
-// }
 </style>

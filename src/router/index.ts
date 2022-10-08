@@ -33,7 +33,8 @@ const router = createRouter({
         {
             path: '/vue_flow',
             name: 'VueFlow',
-            component: () => import('../templates/diagram/VueFlow.vue'),
+            component: () =>
+                import('../templates/diagram/VueFlow.vue'),
             meta: {
                 layout: 'main',
                 auth: false

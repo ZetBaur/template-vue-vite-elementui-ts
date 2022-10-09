@@ -6,12 +6,13 @@
         :collapse="isCollapse"
         router
     >
-        <TheLogo />
+        <div style="text-align: center; margin-top: 38px">
+            <TheLogo />
+        </div>
 
         <el-sub-menu index="1">
             <template #title>
                 <el-icon><location /></el-icon>
-
                 <span>Navigator One</span>
             </template>
 
@@ -60,10 +61,12 @@
 
         <!-- ------- -->
 
-        <MenuToggleIcon
-            @click="expandMenu"
-            class="menu-toggle-icon"
-        />
+        <div style="text-align: center">
+            <MenuToggleIcon
+                @click="expandMenu"
+                class="menu-toggle-icon"
+            />
+        </div>
     </el-menu>
 </template>
 

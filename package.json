@@ -37,6 +37,6 @@
     "unplugin-auto-import": "^0.9.3",
     "unplugin-vue-components": "^0.21.1",
     "vite": "^2.9.14",
-    "vue-tsc": "1.0.0"
+    "vue-tsc": "1.0.1"
   }
 }
